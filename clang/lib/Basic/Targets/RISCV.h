@@ -49,6 +49,9 @@ public:
                         MacroBuilder &Builder) const override;
 
   ArrayRef<Builtin::Info> getTargetBuiltins() const override { return None; }
+  /* { return None; } // Standard RISCV does not support frontend
+   * to call intrinsics directly
+   * */
 
   BuiltinVaListKind getBuiltinVaListKind() const override {
     return TargetInfo::VoidPtrBuiltinVaList;
@@ -105,6 +108,7 @@ public:
   }
 };
 class LLVM_LIBRARY_VISIBILITY RISCV64TargetInfo : public RISCVTargetInfo {
+  static const Builtin::Info BuiltinInfo[]; // to support YGJK RoCC
 public:
   RISCV64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : RISCVTargetInfo(Triple, Opts) {
@@ -127,6 +131,8 @@ public:
     if (HasA)
       MaxAtomicInlineWidth = 64;
   }
+
+  ArrayRef<Builtin::Info> getTargetBuiltins() const override;
 };
 } // namespace targets
 } // namespace clang

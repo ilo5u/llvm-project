@@ -11,11 +11,28 @@
 //===----------------------------------------------------------------------===//
 
 #include "RISCV.h"
+#include "clang/Basic/Builtins.h"
+#include "clang/Basic/MacroBuilder.h"
+#include "clang/Basic/TargetBuiltins.h"
 #include "clang/Basic/MacroBuilder.h"
 #include "llvm/ADT/StringSwitch.h"
 
 using namespace clang;
 using namespace clang::targets;
+
+const Builtin::Info RISCV64TargetInfo::BuiltinInfo[] = {
+#define BUILTIN(ID, TYPE, ATTRS)                                               \
+  {#ID, TYPE, ATTRS, nullptr, ALL_LANGUAGES, nullptr},
+#define LIBBUILTIN(ID, TYPE, ATTRS, HEADER)                                    \
+  {#ID, TYPE, ATTRS, HEADER, ALL_LANGUAGES, nullptr},
+#include "clang/Basic/BuiltinsRISCV.def"
+};
+
+ArrayRef<Builtin::Info> RISCV64TargetInfo::getTargetBuiltins() const {
+  return llvm::makeArrayRef(BuiltinInfo, clang::RISCV::LastTSBuiltin -
+    Builtin::FirstTSBuiltin);
+}
+
 
 ArrayRef<const char *> RISCVTargetInfo::getGCCRegNames() const {
   static const char *const GCCRegNames[] = {
