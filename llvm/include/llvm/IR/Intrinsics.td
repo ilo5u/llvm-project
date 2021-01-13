@@ -1546,6 +1546,3 @@ include "llvm/IR/IntrinsicsBPF.td"
 include "llvm/IR/IntrinsicsSystemZ.td"
 include "llvm/IR/IntrinsicsWebAssembly.td"
 include "llvm/IR/IntrinsicsRISCV.td"
-
-// Add YJGK Extended RISCV RoCC Intrinsics
-include "llvm/IR/IntrinsicsYGJK.td"

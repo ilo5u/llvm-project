@@ -24,6 +24,14 @@
 // names below), in order to avoid type conflicts.
 
 let TargetPrefix = "riscv" in {
+  def int_riscv_ygjk_rrrii : GCCBuiltin<"__builtin_ygjk_rrrii">,
+      Intrinsic<[llvm_i64_ty], [llvm_i64_ty, llvm_i64_ty], []>;
+
+  def int_riscv_ygjk_rrrpp : GCCBuiltin<"__builtin_ygjk_rrrpp">,
+      Intrinsic<[llvm_i64_ty], [llvm_ptr_ty, llvm_ptr_ty], []>;
+
+  def int_riscv_ygjk_rrr : GCCBuiltin<"__builtin_ygjk_rrr">,
+      Intrinsic<[llvm_i64_ty], [], []>;
 
   // T @llvm.<name>.T.<p>(any*, T, T, T imm);
   class MaskedAtomicRMWFourArg<LLVMType itype>
@@ -64,5 +72,4 @@ let TargetPrefix = "riscv" in {
 
   // @llvm.riscv.masked.cmpxchg.{i32,i64}.<p>(...)
   defm int_riscv_masked_cmpxchg : MaskedAtomicRMWFiveArgIntrinsics;
-
 } // TargetPrefix = "riscv"
