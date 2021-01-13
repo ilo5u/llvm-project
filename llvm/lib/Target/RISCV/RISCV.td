@@ -155,6 +155,13 @@ def HasStdExtV : Predicate<"Subtarget->hasStdExtV()">,
                            AssemblerPredicate<(all_of FeatureStdExtV),
                            "'V' (Vector Instructions)">;
 
+def FeatureStdExtYGJK
+    : SubtargetFeature<"ygjk", "HasStdExtYGJK", "true",
+                        "YGJK RoCC Extented Instructions">;
+def HasStdExtYGJK : Predicate<"Subtarget->hasStdExtYGJK()">,
+                                AssemblerPredicate<(all_of FeatureStdExtYGJK),
+                                "YGJK RoCC Extended Instructions">;
+
 def Feature64Bit
     : SubtargetFeature<"64bit", "HasRV64", "true", "Implements RV64">;
 def IsRV64 : Predicate<"Subtarget->is64Bit()">,
@@ -216,6 +223,9 @@ def : ProcessorModel<"rocket-rv32", Rocket32Model, [FeatureRVCHints]>;
 
 def : ProcessorModel<"rocket-rv64", Rocket64Model, [Feature64Bit,
                      FeatureRVCHints]>;
+
+def : ProcessorModel<"ygjk-rv64", Rocket64Model, [Feature64Bit,
+                    FeatureStdExtYGJK, FeatureRVCHints]>;
 
 
 //===----------------------------------------------------------------------===//

@@ -51,6 +51,10 @@ class RISCVSubtarget : public RISCVGenSubtargetInfo {
   bool HasStdExtZbt = false;
   bool HasStdExtZbproposedc = false;
   bool HasStdExtV = false;
+
+  // YGJK RoCC Extension
+  bool HasStdExtYGJK = false;
+
   bool HasRV64 = false;
   bool IsRV32E = false;
   bool EnableLinkerRelax = false;
@@ -112,6 +116,11 @@ public:
   bool hasStdExtZbt() const { return HasStdExtZbt; }
   bool hasStdExtZbproposedc() const { return HasStdExtZbproposedc; }
   bool hasStdExtV() const { return HasStdExtV; }
+
+  // YGJK RoCC Extension
+  // Called in RISCVInstrInfoYGJK.td -> RISCVInstrInfoYGJK.inc
+  bool hasStdExtYGJK() const { return HasStdExtYGJK; }
+
   bool is64Bit() const { return HasRV64; }
   bool isRV32E() const { return IsRV32E; }
   bool enableLinkerRelax() const { return EnableLinkerRelax; }

@@ -1178,3 +1178,6 @@ include "RISCVInstrInfoD.td"
 include "RISCVInstrInfoC.td"
 include "RISCVInstrInfoB.td"
 include "RISCVInstrInfoV.td"
+
+// YGJK RoCC Extension
+include "RISCVInstrInfoYGJK.td"

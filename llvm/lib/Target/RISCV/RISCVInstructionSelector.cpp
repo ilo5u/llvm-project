@@ -18,6 +18,9 @@
 #include "llvm/CodeGen/GlobalISel/InstructionSelectorImpl.h"
 #include "llvm/Support/Debug.h"
 
+// To contain builtin intrinsics (YGJK RoCC Extension)
+#include "llvm/IR/IntrinsicsRISCV.h"
+
 #define DEBUG_TYPE "riscv-isel"
 
 using namespace llvm;
