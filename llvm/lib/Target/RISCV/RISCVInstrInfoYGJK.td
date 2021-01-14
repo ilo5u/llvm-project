@@ -29,18 +29,21 @@ class YGJKRoCCWithInsII<RISCVYGJKFunct funct, RISCVYGJKOpcode opcode, bits<3> x,
     : RVInstYGJKWithIns<funct, opcode, x, (outs GPR:$rd),
                     (ins GPR:$rs1, GPR:$rs2),
                     [(set GPR:$rd, (int_riscv_ygjk_rrrii GPR:$rs1, GPR:$rs2))],
+                    // [],
                     opcodestr, "$rd, $rs1, $rs2">;
 
 class YGJKRoCCWithoutIns<RISCVYGJKFunct funct, RISCVYGJKOpcode opcode, bits<3> x, string opcodestr>
     : RVInstYGJKWithoutIns<funct, opcode, x, (outs GPR:$rd),
                     (ins),
                     [(set GPR:$rd, (int_riscv_ygjk_rrr))],
+                    // [],
                     opcodestr, "$rd">;
 
 class YGJKRoCCWithInsPP<RISCVYGJKFunct funct, RISCVYGJKOpcode opcode, bits<3> x, string opcodestr>
     : RVInstYGJKWithIns<funct, opcode, x, (outs GPR:$rd),
                     (ins GPR:$rs1, GPR:$rs2),
                     [(set GPR:$rd, (int_riscv_ygjk_rrrpp GPR:$rs1, GPR:$rs2))],
+                    // [],
                     opcodestr, "$rd, $rs1, $rs2">;
 // }
 
@@ -59,5 +62,5 @@ let Predicates = [HasStdExtYGJK] in {
 def YGJKSTART : YGJKRoCCWithInsII<FUNCTWithIns, OPEXECU, 0b111, "ygjkstart">;
 def YGJKEXECU : YGJKRoCCWithInsPP<FUNCTWithIns, OPEXECU, 0b111, "ygjkexecu">;
 def YGJKQUIRY : YGJKRoCCWithoutIns<FUNCTWithoutIns, OPQUIRY, 0b111, "ygjkquiry">;
-// }
-} // Predicates = [HasStdExtYGJK]
+}
+//} // Predicates = [HasStdExtYGJK]
