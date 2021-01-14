@@ -160,6 +160,7 @@ bool RISCVTargetInfo::hasFeature(StringRef Feature) const {
       .Case("d", HasD)
       .Case("c", HasC)
       .Case("experimental-b", HasB)
+      .Case("ygjk", HasYGJK)
       .Default(false);
 }
 
@@ -179,6 +180,8 @@ bool RISCVTargetInfo::handleTargetFeatures(std::vector<std::string> &Features,
       HasC = true;
     else if (Feature == "+experimental-b")
       HasB = true;
+    else if (Feature == "+ygjk")
+      HasYGJK = true;
   }
 
   return true;

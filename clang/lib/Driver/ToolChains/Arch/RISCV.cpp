@@ -73,6 +73,9 @@ static bool isSupportedExtension(StringRef Ext) {
     return true;
 
   // LLVM does not support "sx", "s" nor "x" extensions.
+  if (Ext.startswith("x")) {
+    return true;
+  }
   return false;
 }
 
@@ -248,8 +251,8 @@ static void getExtensionFeatures(const Driver &D,
     }
     if (isExperimentalExtension(Ext))
       Features.push_back(Args.MakeArgString("+experimental-" + Ext));
-    else
-      Features.push_back(Args.MakeArgString("+" + Ext));
+    else if (Ext.size() > 1 && Ext.startswith("x"))
+      Features.push_back(Args.MakeArgString("+" + Ext.substr(1)));
   }
 }
 
@@ -319,7 +322,7 @@ static bool getArchFeatures(const Driver &D, StringRef MArch,
   // Parse them at the end.
   // Find the very first occurrence of 's', 'x' or 'z'.
   StringRef OtherExts;
-  size_t Pos = Exts.find_first_of("zsx");
+  size_t Pos = Exts.find_first_of("zsxy");
   if (Pos != StringRef::npos) {
     OtherExts = Exts.substr(Pos);
     Exts = Exts.substr(0, Pos);
@@ -403,6 +406,9 @@ static bool getArchFeatures(const Driver &D, StringRef MArch,
       break;
     case 'v':
       Features.push_back("+experimental-v");
+      break;
+    case 'y':
+      Features.push_back("+ygjk");
       break;
     }
 

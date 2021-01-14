@@ -31,11 +31,12 @@ protected:
   bool HasD;
   bool HasC;
   bool HasB;
+  bool HasYGJK;
 
 public:
   RISCVTargetInfo(const llvm::Triple &Triple, const TargetOptions &)
       : TargetInfo(Triple), HasM(false), HasA(false), HasF(false),
-        HasD(false), HasC(false), HasB(false) {
+        HasD(false), HasC(false), HasB(false), HasYGJK(false) {
     LongDoubleWidth = 128;
     LongDoubleAlign = 128;
     LongDoubleFormat = &llvm::APFloat::IEEEquad();
@@ -48,7 +49,7 @@ public:
   void getTargetDefines(const LangOptions &Opts,
                         MacroBuilder &Builder) const override;
 
-  ArrayRef<Builtin::Info> getTargetBuiltins() const override { return None; }
+  // ArrayRef<Builtin::Info> getTargetBuiltins() const override { return None; }
   /* { return None; } // Standard RISCV does not support frontend
    * to call intrinsics directly
    * */
@@ -106,6 +107,8 @@ public:
     if (HasA)
       MaxAtomicInlineWidth = 32;
   }
+
+  ArrayRef<Builtin::Info> getTargetBuiltins() const override { return None; }
 };
 class LLVM_LIBRARY_VISIBILITY RISCV64TargetInfo : public RISCVTargetInfo {
   static const Builtin::Info BuiltinInfo[]; // to support YGJK RoCC
